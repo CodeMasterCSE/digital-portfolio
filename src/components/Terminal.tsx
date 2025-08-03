@@ -13,6 +13,8 @@ const Terminal: React.FC = () => {
   const [lines, setLines] = useState<TerminalLine[]>([]);
   const [commandHistory, setCommandHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
+  const [isTyping, setIsTyping] = useState(false);
+  const [currentTypingIndex, setCurrentTypingIndex] = useState(0);
   const terminalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -25,11 +27,15 @@ const Terminal: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    // Auto-scroll to bottom
-    if (terminalRef.current) {
-      terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
+    // Enhanced auto-scroll to bottom with smooth behavior
+    if (terminalRef.current && !isTyping) {
+      const scrollElement = terminalRef.current;
+      scrollElement.scrollTo({
+        top: scrollElement.scrollHeight,
+        behavior: 'smooth'
+      });
     }
-  }, [lines]);
+  }, [lines, isTyping]);
 
   const executeCommand = (command: string) => {
     const trimmedCommand = command.trim().toLowerCase();
@@ -41,35 +47,46 @@ const Terminal: React.FC = () => {
     setHistoryIndex(-1);
 
     // Add command to output
-    setLines(prev => [...prev, { type: 'command', content: `$ ${command}` }]);
+    const commandLine: TerminalLine = { type: 'command', content: `visitor@portfolio:~$ ${command}` };
+    setLines(prev => [...prev, commandLine]);
 
-    // Process command
+    // Start typing animation for responses
+    setIsTyping(true);
+    setCurrentTypingIndex(lines.length + 1);
+
+    // Process command and add responses with delay
+    let newLines: TerminalLine[] = [];
     switch (trimmedCommand) {
       case '':
+        newLines = [];
         break;
       case 'help':
-        setLines(prev => [...prev, 
-          { type: 'info', content: 'Available commands:' },
-          { type: 'output', content: '  help       - Show this help message' },
-          { type: 'output', content: '  about      - About me' },
-          { type: 'output', content: '  skills     - Technical skills' },
-          { type: 'output', content: '  projects   - Portfolio projects' },
-          { type: 'output', content: '  contact    - Contact information' },
-          { type: 'output', content: '  clear      - Clear terminal' },
-          { type: 'output', content: '  whoami     - Current user info' }
-        ]);
+        newLines = [
+          { type: 'info', content: '╭─ Available Commands ─╮' },
+          { type: 'output', content: '│  help       - Show this help message' },
+          { type: 'output', content: '│  about      - About me' },
+          { type: 'output', content: '│  skills     - Technical skills' },
+          { type: 'output', content: '│  projects   - Portfolio projects' },
+          { type: 'output', content: '│  contact    - Contact information' },
+          { type: 'output', content: '│  clear      - Clear terminal' },
+          { type: 'output', content: '│  whoami     - Current user info' },
+          { type: 'info', content: '╰───────────────────────╯' }
+        ];
         break;
       case 'about':
-        setLines(prev => [...prev,
-          { type: 'success', content: '=== About Me ===' },
-          { type: 'output', content: 'Hello! I\'m a passionate Full Stack Developer with expertise in' },
-          { type: 'output', content: 'modern web technologies. I love creating innovative solutions' },
-          { type: 'output', content: 'and building user-friendly applications.' },
-          { type: 'output', content: '' },
-          { type: 'output', content: 'Experience: 5+ years in web development' },
-          { type: 'output', content: 'Location: San Francisco, CA' },
-          { type: 'output', content: 'Passion: Building the future, one line of code at a time.' }
-        ]);
+        newLines = [
+          { type: 'success', content: '╔══════════════ About Me ══════════════╗' },
+          { type: 'output', content: '║ Hello! I\'m a passionate Full Stack    ║' },
+          { type: 'output', content: '║ Developer with expertise in modern    ║' },
+          { type: 'output', content: '║ web technologies. I love creating     ║' },
+          { type: 'output', content: '║ innovative solutions and building     ║' },
+          { type: 'output', content: '║ user-friendly applications.           ║' },
+          { type: 'output', content: '║                                       ║' },
+          { type: 'info', content: '║ 💼 Experience: 5+ years               ║' },
+          { type: 'info', content: '║ 📍 Location: San Francisco, CA       ║' },
+          { type: 'info', content: '║ 🚀 Passion: Building the future      ║' },
+          { type: 'success', content: '╚═══════════════════════════════════════╝' }
+        ];
         break;
       case 'skills':
         setLines(prev => [...prev,
@@ -132,16 +149,24 @@ const Terminal: React.FC = () => {
         break;
       case 'clear':
         setLines([]);
+        setIsTyping(false);
         return;
       default:
-        setLines(prev => [...prev, 
-          { type: 'error', content: `Command not found: ${trimmedCommand}` },
-          { type: 'output', content: 'Type "help" for available commands.' }
-        ]);
+        newLines = [
+          { type: 'error', content: `❌ Command not found: ${trimmedCommand}` },
+          { type: 'output', content: '💡 Type "help" for available commands.' }
+        ];
     }
 
-    // Add empty line for spacing
-    setLines(prev => [...prev, { type: 'output', content: '' }]);
+    // Add responses with typing animation
+    if (newLines.length > 0) {
+      setTimeout(() => {
+        setLines(prev => [...prev, ...newLines, { type: 'output', content: '' }]);
+        setIsTyping(false);
+      }, 100);
+    } else {
+      setIsTyping(false);
+    }
   };
 
   return (
@@ -150,10 +175,18 @@ const Terminal: React.FC = () => {
         <TerminalHeader />
         <div 
           ref={terminalRef}
-          className="flex-1 overflow-y-auto p-4 font-mono text-sm relative"
+          className="flex-1 overflow-y-auto p-4 font-mono text-sm relative scroll-smooth"
+          style={{ 
+            scrollbarWidth: 'thin',
+            scrollbarColor: 'hsl(var(--terminal-border)) transparent'
+          }}
         >
           <div className="terminal-scanline"></div>
-          <TerminalOutput lines={lines} />
+          <TerminalOutput 
+            lines={lines} 
+            isTyping={isTyping}
+            currentTypingIndex={currentTypingIndex}
+          />
           <TerminalInput 
             onExecuteCommand={executeCommand}
             commandHistory={commandHistory}

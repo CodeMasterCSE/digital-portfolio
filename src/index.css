@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Terminal Portfolio Design System - All colors MUST be HSL */
+/* Terminal Portfolio Design System - Enhanced Colors MUST be HSL */
 
 @layer base {
   :root {
@@ -19,12 +19,25 @@
     --terminal-cursor: 120 100% 90%;
     --terminal-shadow: 220 20% 5%;
 
+    /* Enhanced Terminal Colors */
+    --terminal-glow: 120 100% 50%;
+    --terminal-highlight: 120 80% 60%;
+    --terminal-dim: 120 30% 40%;
+    --terminal-accent: 160 80% 70%;
+    --terminal-secondary: 200 70% 65%;
+
     /* Semantic Colors */
     --success: 120 100% 75%;
     --warning: 45 100% 70%;
     --error: 0 85% 70%;
     --info: 200 85% 75%;
     --accent: 280 85% 75%;
+    
+    /* Additional themed colors */
+    --neon-green: 120 100% 50%;
+    --neon-blue: 200 100% 60%;
+    --neon-purple: 280 100% 70%;
+    --neon-orange: 30 100% 65%;
 
     /* Legacy compatibility */
     --card: 220 15% 10%;
@@ -105,10 +118,13 @@
 
   body {
     @apply bg-background text-foreground font-mono overflow-hidden;
-    background: linear-gradient(135deg, hsl(var(--terminal-bg)), hsl(var(--terminal-shadow)));
+    background: 
+      radial-gradient(circle at 20% 50%, hsl(var(--terminal-glow) / 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, hsl(var(--neon-blue) / 0.03) 0%, transparent 50%),
+      linear-gradient(135deg, hsl(var(--terminal-bg)), hsl(var(--terminal-shadow)));
   }
 
-  /* Terminal animations */
+  /* Enhanced Terminal animations */
   @keyframes blink {
     0%, 50% { opacity: 1; }
     51%, 100% { opacity: 0; }
@@ -117,6 +133,16 @@
   @keyframes scanline {
     0% { transform: translateY(-100vh); }
     100% { transform: translateY(100vh); }
+  }
+
+  @keyframes typewriter {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+
+  @keyframes glow {
+    0%, 100% { text-shadow: 0 0 5px hsl(var(--terminal-glow) / 0.5); }
+    50% { text-shadow: 0 0 20px hsl(var(--terminal-glow) / 0.8), 0 0 30px hsl(var(--terminal-glow) / 0.6); }
   }
 
   .terminal-cursor {
@@ -132,6 +158,16 @@
     background: linear-gradient(90deg, transparent, hsl(var(--terminal-text) / 0.3), transparent);
     animation: scanline 3s linear infinite;
     pointer-events: none;
+  }
+
+  .terminal-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  .typing-animation {
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typewriter 0.03s steps(1, end);
   }
 
   /* Monospace font stack */
