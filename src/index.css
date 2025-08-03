@@ -54,21 +54,50 @@
 
     --radius: 0.25rem;
 
+    /* Sidebar variables */
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  /* Theme variations */
+  .theme-matrix {
+    --terminal-text: 120 100% 75%;
+    --terminal-prompt: 120 100% 85%;
+    --success: 120 100% 75%;
+    --info: 120 80% 60%;
+  }
+
+  .theme-cyberpunk {
+    --terminal-text: 280 100% 75%;
+    --terminal-prompt: 280 100% 85%;
+    --terminal-border: 280 30% 25%;
+    --success: 280 100% 75%;
+    --info: 280 80% 60%;
+    --terminal-glow: 280 100% 50%;
+  }
+
+  .theme-retro {
+    --terminal-text: 30 100% 65%;
+    --terminal-prompt: 30 100% 75%;
+    --terminal-border: 30 30% 25%;
+    --success: 30 100% 65%;
+    --info: 30 80% 50%;
+    --terminal-glow: 30 100% 50%;
+  }
+
+  .theme-ocean {
+    --terminal-text: 200 100% 75%;
+    --terminal-prompt: 200 100% 85%;
+    --terminal-border: 200 30% 25%;
+    --success: 200 100% 75%;
+    --info: 200 80% 60%;
+    --terminal-glow: 200 100% 50%;
   }
 
   .dark {
@@ -168,6 +197,24 @@
     overflow: hidden;
     white-space: nowrap;
     animation: typewriter 0.03s steps(1, end);
+  }
+
+  /* Enhanced scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--terminal-bg));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--terminal-border));
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--terminal-text) / 0.5);
   }
 
   /* Monospace font stack */
