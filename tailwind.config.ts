@@ -61,7 +61,20 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				terminal: {
+					bg: 'hsl(var(--terminal-bg))',
+					border: 'hsl(var(--terminal-border))',
+					header: 'hsl(var(--terminal-header))',
+					text: 'hsl(var(--terminal-text))',
+					prompt: 'hsl(var(--terminal-prompt))',
+					cursor: 'hsl(var(--terminal-cursor))',
+					shadow: 'hsl(var(--terminal-shadow))'
+				},
+				success: 'hsl(var(--success))',
+				warning: 'hsl(var(--warning))',
+				error: 'hsl(var(--error))',
+				info: 'hsl(var(--info))'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

@@ -2,41 +2,44 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Terminal Portfolio Design System - All colors MUST be HSL */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Terminal Dark Theme */
+    --background: 220 15% 8%;
+    --foreground: 120 100% 75%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    /* Terminal Window */
+    --terminal-bg: 220 15% 8%;
+    --terminal-border: 120 30% 25%;
+    --terminal-header: 220 10% 15%;
+    --terminal-text: 120 100% 75%;
+    --terminal-prompt: 120 100% 85%;
+    --terminal-cursor: 120 100% 90%;
+    --terminal-shadow: 220 20% 5%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    /* Semantic Colors */
+    --success: 120 100% 75%;
+    --warning: 45 100% 70%;
+    --error: 0 85% 70%;
+    --info: 200 85% 75%;
+    --accent: 280 85% 75%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Legacy compatibility */
+    --card: 220 15% 10%;
+    --card-foreground: 120 100% 75%;
+    --primary: 120 100% 75%;
+    --primary-foreground: 220 15% 8%;
+    --secondary: 220 10% 15%;
+    --secondary-foreground: 120 100% 75%;
+    --muted: 220 10% 20%;
+    --muted-foreground: 120 50% 60%;
+    --border: 120 30% 25%;
+    --input: 220 10% 15%;
+    --ring: 120 100% 75%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
+    --radius: 0.25rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -94,12 +97,45 @@ All colors MUST be HSL.
   }
 }
 
+/* Terminal specific styles */
 @layer base {
   * {
     @apply border-border;
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-mono overflow-hidden;
+    background: linear-gradient(135deg, hsl(var(--terminal-bg)), hsl(var(--terminal-shadow)));
+  }
+
+  /* Terminal animations */
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+  
+  @keyframes scanline {
+    0% { transform: translateY(-100vh); }
+    100% { transform: translateY(100vh); }
+  }
+
+  .terminal-cursor {
+    animation: blink 1.2s infinite;
+  }
+
+  .terminal-scanline {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, hsl(var(--terminal-text) / 0.3), transparent);
+    animation: scanline 3s linear infinite;
+    pointer-events: none;
+  }
+
+  /* Monospace font stack */
+  .font-mono {
+    font-family: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
   }
 }
