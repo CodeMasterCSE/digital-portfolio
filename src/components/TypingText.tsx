@@ -5,13 +5,15 @@ interface TypingTextProps {
   speed?: number;
   className?: string;
   onComplete?: () => void;
+  renderContent?: (text: string) => React.ReactNode;
 }
 
 export const TypingText: React.FC<TypingTextProps> = ({ 
   text, 
   speed = 30, 
   className = '', 
-  onComplete 
+  onComplete,
+  renderContent 
 }) => {
   const [displayedText, setDisplayedText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -37,9 +39,9 @@ export const TypingText: React.FC<TypingTextProps> = ({
 
   return (
     <span className={`${className} whitespace-pre-wrap`}>
-      {displayedText}
+      {renderContent ? renderContent(displayedText) : displayedText}
       {currentIndex < text.length && (
-        <span className="text-terminal-cursor animate-pulse"></span>
+        <span className="text-terminal-cursor animate-pulse">█</span>
       )}
     </span>
   );

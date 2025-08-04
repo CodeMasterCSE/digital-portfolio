@@ -16,8 +16,9 @@ export const TerminalOutput: React.FC<TerminalOutputProps> = ({
   const getLineColor = (type: TerminalLine['type']) => {
     switch (type) {
       case 'command':
-        return 'text-terminal-prompt font-bold';
+        return 'text-terminal-text';
       case 'error':
+        return 'text-[hsl(var(--error))]';
       case 'success':
       case 'info':
       case 'output':
@@ -26,21 +27,44 @@ export const TerminalOutput: React.FC<TerminalOutputProps> = ({
     }
   };
 
+  const renderCommandLine = (content: string) => {
+    const promptMatch = content.match(/^(visitor@portfolio:~\$\s)(.*)/);
+    if (promptMatch) {
+      return (
+        <>
+          <span className="text-[hsl(200_85%_75%)]">{promptMatch[1]}</span>
+          <span className="text-terminal-text">{promptMatch[2]}</span>
+        </>
+      );
+    }
+    return content;
+  };
+
   return (
     <div className="space-y-1">
       {lines.map((line, index) => (
         <div key={index} className={`${getLineColor(line.type)} whitespace-pre-wrap`}>
-          {line.content}
+          {line.type === 'command' ? renderCommandLine(line.content) : line.content}
         </div>
       ))}
       {currentLine && (
         <div className={`${getLineColor(currentLine.type)} whitespace-pre-wrap`}>
-          <TypingText
-            text={currentLine.content}
-            speed={currentLine.type === 'command' ? 50 : 20}
-            className={getLineColor(currentLine.type)}
-            onComplete={onLineComplete}
-          />
+          {currentLine.type === 'command' ? (
+            <TypingText
+              text={currentLine.content}
+              speed={50}
+              className={getLineColor(currentLine.type)}
+              onComplete={onLineComplete}
+              renderContent={(text) => renderCommandLine(text)}
+            />
+          ) : (
+            <TypingText
+              text={currentLine.content}
+              speed={20}
+              className={getLineColor(currentLine.type)}
+              onComplete={onLineComplete}
+            />
+          )}
         </div>
       )}
     </div>
