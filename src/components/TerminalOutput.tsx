@@ -32,7 +32,7 @@ export const TerminalOutput: React.FC<TerminalOutputProps> = ({
     if (promptMatch) {
       return (
         <>
-          <span className="text-[hsl(200_85%_75%)]">{promptMatch[1]}</span>
+          <span className="text-[hsl(var(--terminal-prompt-fixed))]">{promptMatch[1]}</span>
           <span className="text-terminal-text">{promptMatch[2]}</span>
         </>
       );

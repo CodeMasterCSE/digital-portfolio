@@ -25,6 +25,7 @@
     --terminal-dim: 120 30% 40%;
     --terminal-accent: 160 80% 70%;
     --terminal-secondary: 200 70% 65%;
+    --terminal-prompt-fixed: 200 85% 75%;
 
     /* Semantic Colors */
     --success: 120 100% 75%;
