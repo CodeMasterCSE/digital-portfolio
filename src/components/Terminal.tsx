@@ -59,8 +59,9 @@ const Terminal: React.FC = () => {
           typed = cmd.slice(0, i + 1);
         } else {
           setTimeout(() => {
-            // Instead of calling executeCommand, enqueue the welcome output directly
-            setTypingQueue([
+            // Add ASCII art instantly without typing effect
+            setVisibleLines(prev => [
+              ...prev,
               { type: 'output', content: '' },
               { type: 'output', content: '███████╗ █████╗ ███╗   ███╗██████╗  █████╗ ██████╗' },
               { type: 'output', content: '██╔════╝██╔══██╗████╗ ████║██╔══██╗██╔══██╗██╔══██╗' },
@@ -77,11 +78,14 @@ const Terminal: React.FC = () => {
               { type: 'output', content: '╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝' },
               { type: 'output', content: '' },
               { type: 'output', content: 'BTech CSE Student | Passionate Developer' },
+              { type: 'output', content: '' }
+            ]);
+            // Then start typing the welcome message
+            setTypingQueue([
               { type: 'output', content: 'Welcome to my interactive portfolio terminal!' },
-              { type: 'output', content: '' },
               { type: 'output', content: 'Type "help" to explore available commands.' }
             ]);
-            setCurrentLine({ type: 'output', content: '' });
+            setCurrentLine({ type: 'output', content: 'Welcome to my interactive portfolio terminal!' });
           }, 300);
         }
       }
