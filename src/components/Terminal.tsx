@@ -61,11 +61,27 @@ const Terminal: React.FC = () => {
           setTimeout(() => {
             // Instead of calling executeCommand, enqueue the welcome output directly
             setTypingQueue([
-              { type: 'success', content: "Hi, I'm Sampad Gorai, a BTech CSE student." },
-              { type: 'output', content: 'Welcome to my interactive portfolio terminal' },
-              { type: 'info', content: 'Type "help" to see available commands.' }
+              { type: 'output', content: '' },
+              { type: 'output', content: '███████╗ █████╗ ███╗   ███╗██████╗  █████╗ ██████╗' },
+              { type: 'output', content: '██╔════╝██╔══██╗████╗ ████║██╔══██╗██╔══██╗██╔══██╗' },
+              { type: 'output', content: '███████╗███████║██╔████╔██║██████╔╝███████║██║  ██║' },
+              { type: 'output', content: '╚════██║██╔══██║██║╚██╔╝██║██╔═══╝ ██╔══██║██║  ██║' },
+              { type: 'output', content: '███████║██║  ██║██║ ╚═╝ ██║██║     ██║  ██║██████╔╝' },
+              { type: 'output', content: '╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝╚═╝     ╚═╝  ╚═╝╚═════╝' },
+              { type: 'output', content: '' },
+              { type: 'output', content: ' ██████╗  ██████╗ ██████╗  █████╗ ██╗' },
+              { type: 'output', content: '██╔════╝ ██╔═══██╗██╔══██╗██╔══██╗██║' },
+              { type: 'output', content: '██║  ███╗██║   ██║██████╔╝███████║██║' },
+              { type: 'output', content: '██║   ██║██║   ██║██╔══██╗██╔══██║██║' },
+              { type: 'output', content: '╚██████╔╝╚██████╔╝██║  ██║██║  ██║██║' },
+              { type: 'output', content: '╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝' },
+              { type: 'output', content: '' },
+              { type: 'output', content: 'BTech CSE Student | Passionate Developer' },
+              { type: 'output', content: 'Welcome to my interactive portfolio terminal!' },
+              { type: 'output', content: '' },
+              { type: 'output', content: 'Type "help" to explore available commands.' }
             ]);
-            setCurrentLine({ type: 'success', content: "Hi, I'm Sampad Gorai, a BTech CSE student." });
+            setCurrentLine({ type: 'output', content: '' });
           }, 300);
         }
       }
