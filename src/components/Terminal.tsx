@@ -77,15 +77,15 @@ const Terminal: React.FC = () => {
               { type: 'output', content: '╚██████╔╝╚██████╔╝██║  ██║██║  ██║██║' },
               { type: 'output', content: '╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝' },
               { type: 'output', content: '' },
-              { type: 'output', content: 'BTech CSE Student | Passionate Developer' },
+              { type: 'output', content: 'BTech CSE Student | RCC Institute of Information Technology' },
               { type: 'output', content: '' }
             ]);
             // Then start typing the welcome message
             setTypingQueue([
-              { type: 'output', content: 'Welcome to my interactive portfolio terminal!' },
+              { type: 'output', content: 'Welcome to my interactive Portfolio Terminal!' },
               { type: 'output', content: 'Type "help" to explore available commands.' }
             ]);
-            setCurrentLine({ type: 'output', content: 'Welcome to my interactive portfolio terminal!' });
+            setCurrentLine({ type: 'output', content: 'Welcome to my interactive Portfolio Terminal!' });
           }, 300);
         }
       }
@@ -113,20 +113,19 @@ const Terminal: React.FC = () => {
       case '':
         responseLines = [];
         break;
-      case 'help':
-        responseLines = [
-          { type: 'info', content: 'Available Commands:' },
-          { type: 'output', content: '  help           - Show this help message' },
-          { type: 'output', content: '  about          - About me' },
-          { type: 'output', content: '  skills         - Technical skills' },
-          { type: 'output', content: '  education      - Educational background' },
-          { type: 'output', content: '  certifications - Certifications' },
-          { type: 'output', content: '  projects       - Portfolio projects' },
-          { type: 'output', content: '  contact        - Contact information' },
-          { type: 'output', content: '  themes         - Available themes' },
-          { type: 'output', content: '  clear          - Clear terminal' },
-          { type: 'output', content: '  whoami         - Current user info' }
-        ];
+             case 'help':
+         responseLines = [
+           { type: 'info', content: 'Available Commands:' },
+           { type: 'output', content: '  help           - Show this help message' },
+           { type: 'output', content: '  about          - About me' },
+           { type: 'output', content: '  skills         - Technical skills' },
+           { type: 'output', content: '  education      - Educational background' },
+           { type: 'output', content: '  certifications - Certifications' },
+           { type: 'output', content: '  projects       - Portfolio projects' },
+           { type: 'output', content: '  contact        - Contact information' },
+           { type: 'output', content: '  clear          - Clear terminal' },
+           { type: 'output', content: '  whoami         - Current user info' }
+         ];
         break;
       case 'about':
         responseLines = [
@@ -141,32 +140,15 @@ const Terminal: React.FC = () => {
           { type: 'output', content: 'I love exploring new technologies and building innovative solutions.' },
           { type: 'output', content: 'My passion lies in web development and creating user-friendly applications.' },
           { type: 'output', content: '' },
-          { type: 'info', content: 'Education: BTech in Computer Science & Engineering' },
-          { type: 'info', content: 'Institution: RCC Institute of Information Technology' },
-          { type: 'info', content: 'Focus Areas: Digital Logic, Data Structures & Algorithms' },
-          { type: 'info', content: 'Passion: Building the future, one line of code at a time' }
         ];
         break;
       case 'skills':
         responseLines = [
           { type: 'success', content: 'Technical Skills' },
           { type: 'output', content: '' },
-          { type: 'output', content: 'Frontend Technologies:' },
-          { type: 'info', content: '  ✓ React.js / Next.js' },
-          { type: 'info', content: '  ✓ TypeScript / JavaScript' },
-          { type: 'info', content: '  ✓ Tailwind CSS / Styled Components' },
-          { type: 'info', content: '  ✓ HTML5 / CSS3' },
+          { type: 'info', content: 'Will be added soon...' },
           { type: 'output', content: '' },
-          { type: 'output', content: 'Backend Technologies:' },
-          { type: 'info', content: '  ✓ Node.js / Express' },
-          { type: 'info', content: '  ✓ Python / Django' },
-          { type: 'info', content: '  ✓ PostgreSQL / MongoDB' },
-          { type: 'info', content: '  ✓ REST APIs / GraphQL' },
-          { type: 'output', content: '' },
-          { type: 'output', content: 'Tools & Others:' },
-          { type: 'info', content: '  ✓ Git / GitHub' },
-          { type: 'info', content: '  ✓ Docker / AWS' },
-          { type: 'info', content: '  ✓ Linux / Terminal' }
+          { type: 'output', content: 'This section will showcase my technical skills and expertise.' }
         ];
         break;
       case 'education':
@@ -202,55 +184,33 @@ const Terminal: React.FC = () => {
         responseLines = [
           { type: 'success', content: 'Certifications' },
           { type: 'output', content: '' },
-          { type: 'info', content: 'No certifications added yet.' },
+          { type: 'info', content: 'Will be added soon...' },
           { type: 'output', content: '' },
-          { type: 'output', content: 'You can update this section later.' }
+          { type: 'output', content: 'This section will display my professional certifications and achievements.' }
         ];
         break;
       case 'projects':
         responseLines = [
           { type: 'success', content: 'Portfolio Projects' },
           { type: 'output', content: '' },
-          { type: 'info', content: '1. E-Commerce Platform' },
-          { type: 'output', content: '   Tech: React, Node.js, PostgreSQL' },
-          { type: 'output', content: '   Desc: Full-stack shopping platform with payment integration' },
+          { type: 'info', content: 'Will be added soon...' },
           { type: 'output', content: '' },
-          { type: 'info', content: '2. Task Management App' },
-          { type: 'output', content: '   Tech: Next.js, TypeScript, Supabase' },
-          { type: 'output', content: '   Desc: Collaborative project management tool' },
-          { type: 'output', content: '' },
-          { type: 'info', content: '3. Weather Dashboard' },
-          { type: 'output', content: '   Tech: React, D3.js, OpenWeather API' },
-          { type: 'output', content: '   Desc: Interactive weather visualization dashboard' },
-          { type: 'output', content: '' },
-          { type: 'output', content: 'GitHub: github.com/yourhandle' }
+          { type: 'output', content: 'This section will showcase my portfolio projects and their details.' }
         ];
         break;
       case 'contact':
         responseLines = [
           { type: 'success', content: 'Contact Information' },
           { type: 'output', content: '' },
-          { type: 'info', content: 'Email: developer@example.com' },
-          { type: 'info', content: 'LinkedIn: linkedin.com/in/yourprofile' },
-          { type: 'info', content: 'GitHub: github.com/yourhandle' },
-          { type: 'info', content: 'Portfolio: yourwebsite.com' },
+          { type: 'info', content: 'Email: sampad.sg.cse@gmail.com' },
+          { type: 'info', content: 'LinkedIn: linkedin.com/in/sampadgorai' },
+          { type: 'info', content: 'GitHub: github.com/CodeMasterCSE' },
+          { type: 'info', content: 'Portfolio: https://sampadgorai.vercel.app/' },
           { type: 'output', content: '' },
           { type: 'output', content: 'Feel free to reach out for collaborations or opportunities!' }
         ];
         break;
-      case 'themes':
-        responseLines = [
-          { type: 'success', content: 'Available Themes' },
-          { type: 'output', content: '' },
-          ...Object.entries(themes).map(([key, theme]) => ({
-            type: 'info' as const,
-            content: `  ${key === currentTheme ? '●' : '○'} ${key} - ${theme.name}`
-          })),
-          { type: 'output', content: '' },
-          { type: 'output', content: 'Usage: theme <name>' },
-          { type: 'output', content: `Current theme: ${currentTheme}` }
-        ];
-        break;
+      
       case 'whoami':
         responseLines = [
           { type: 'success', content: 'You are browsing as: Visitor' },
@@ -262,26 +222,11 @@ const Terminal: React.FC = () => {
         setTypingQueue([]);
         setCurrentLine(null);
         return;
-      default:
-        if (trimmedCommand.startsWith('theme ')) {
-          const themeName = trimmedCommand.split(' ')[1];
-          if (themes[themeName as keyof typeof themes]) {
-            setCurrentTheme(themeName);
-            responseLines = [
-              { type: 'success', content: `Theme changed to: ${themes[themeName as keyof typeof themes].name}` }
-            ];
-          } else {
-            responseLines = [
-              { type: 'error', content: `❌ Theme not found: ${themeName}` },
-              { type: 'output', content: 'Available themes: ' + Object.keys(themes).join(', ') }
-            ];
-          }
-        } else {
-          responseLines = [
-            { type: 'error', content: `❌ Command not found: ${trimmedCommand}` },
-            { type: 'output', content: '💡 Type "help" for available commands.' }
-          ];
-        }
+             default:
+         responseLines = [
+           { type: 'error', content: `❌ Command not found: ${trimmedCommand}` },
+           { type: 'output', content: '💡 Type "help" for available commands.' }
+         ];
     }
 
     if (responseLines.length > 0) {
