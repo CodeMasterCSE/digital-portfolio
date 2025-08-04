@@ -79,7 +79,7 @@ export const TerminalInput: React.FC<TerminalInputProps> = ({
 
   return (
     <div className="flex items-center space-x-2">
-      <span className="text-terminal-prompt">visitor@portfolio:~$</span>
+      <span className="text-[hsl(var(--terminal-prompt-fixed))]">visitor@portfolio:~$</span>
       <div className="flex-1 relative">
         <input
           ref={inputRef}
