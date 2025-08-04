@@ -18,11 +18,8 @@ export const TerminalOutput: React.FC<TerminalOutputProps> = ({
       case 'command':
         return 'text-terminal-prompt font-bold';
       case 'error':
-        return 'text-error';
       case 'success':
-        return 'text-success font-semibold';
       case 'info':
-        return 'text-info';
       case 'output':
       default:
         return 'text-terminal-text';
