@@ -91,12 +91,6 @@ export const TerminalInput: React.FC<TerminalInputProps> = ({
           autoComplete="off"
           spellCheck="false"
         />
-        <span 
-          className={`absolute text-terminal-cursor ${showCursor ? 'opacity-100' : 'opacity-0'}`}
-          style={{ left: `${currentCommand.length * 0.6}em` }}
-        >
-          █
-        </span>
       </div>
     </div>
   );

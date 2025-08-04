@@ -4,14 +4,14 @@ import { TypingText } from './TypingText';
 
 interface TerminalOutputProps {
   lines: TerminalLine[];
-  isTyping: boolean;
-  currentTypingIndex: number;
+  currentLine: TerminalLine | null;
+  onLineComplete?: () => void;
 }
 
-export const TerminalOutput: React.FC<TerminalOutputProps> = ({ 
-  lines, 
-  isTyping, 
-  currentTypingIndex 
+export const TerminalOutput: React.FC<TerminalOutputProps> = ({
+  lines,
+  currentLine,
+  onLineComplete,
 }) => {
   const getLineColor = (type: TerminalLine['type']) => {
     switch (type) {
@@ -33,17 +33,19 @@ export const TerminalOutput: React.FC<TerminalOutputProps> = ({
     <div className="space-y-1">
       {lines.map((line, index) => (
         <div key={index} className={`${getLineColor(line.type)} whitespace-pre-wrap`}>
-          {isTyping && index >= currentTypingIndex ? (
-            <TypingText 
-              text={line.content}
-              speed={line.type === 'command' ? 50 : 20}
-              className={getLineColor(line.type)}
-            />
-          ) : (
-            line.content
-          )}
+          {line.content}
         </div>
       ))}
+      {currentLine && (
+        <div className={`${getLineColor(currentLine.type)} whitespace-pre-wrap`}>
+          <TypingText
+            text={currentLine.content}
+            speed={currentLine.type === 'command' ? 50 : 20}
+            className={getLineColor(currentLine.type)}
+            onComplete={onLineComplete}
+          />
+        </div>
+      )}
     </div>
   );
 };

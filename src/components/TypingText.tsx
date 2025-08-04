@@ -39,7 +39,7 @@ export const TypingText: React.FC<TypingTextProps> = ({
     <span className={`${className} whitespace-pre-wrap`}>
       {displayedText}
       {currentIndex < text.length && (
-        <span className="text-terminal-cursor animate-pulse">█</span>
+        <span className="text-terminal-cursor animate-pulse"></span>
       )}
     </span>
   );
