@@ -10,26 +10,23 @@ export interface TerminalLine {
   timestamp?: Date;
 }
 
-const AVAILABLE_THEMES = [
-  { name: 'default', displayName: 'Matrix Green', description: 'Classic green terminal theme', class: '' },
-  { name: 'matrix', displayName: 'Matrix Enhanced', description: 'Enhanced matrix-style green theme', class: 'theme-matrix' },
-  { name: 'cyberpunk', displayName: 'Cyberpunk', description: 'Purple neon cyberpunk aesthetic', class: 'theme-cyberpunk' },
-  { name: 'retro', displayName: 'Retro', description: 'Warm orange retro computing style', class: 'theme-retro' },
-  { name: 'ocean', displayName: 'Ocean', description: 'Cool blue ocean depths theme', class: 'theme-ocean' }
-];
-
 const Terminal: React.FC = () => {
   const [visibleLines, setVisibleLines] = useState<TerminalLine[]>([]);
   const [typingQueue, setTypingQueue] = useState<TerminalLine[]>([]);
   const [currentLine, setCurrentLine] = useState<TerminalLine | null>(null);
   const [commandHistory, setCommandHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
-  const [currentTheme, setCurrentTheme] = useState(() => {
-    return localStorage.getItem('terminal-theme') || 'default';
-  });
+  const [currentTheme, setCurrentTheme] = useState('matrix');
   
   const terminalRef = useRef<HTMLDivElement>(null);
   const prevLinesLength = useRef<number>(0);
+
+  const themes = {
+    matrix: { name: 'Matrix Green', class: 'theme-matrix' },
+    cyberpunk: { name: 'Cyberpunk Purple', class: 'theme-cyberpunk' },
+    retro: { name: 'Retro Amber', class: 'theme-retro' },
+    ocean: { name: 'Ocean Blue', class: 'theme-ocean' }
+  };
 
   const projects = [
     {
@@ -47,28 +44,6 @@ const Terminal: React.FC = () => {
       technologies: ["HTML", "CSS", "JavaScript", "Bootstrap"]
     }
   ];
-
-  // Theme management
-  const switchTheme = (themeName: string) => {
-    const theme = AVAILABLE_THEMES.find(t => t.name === themeName);
-    if (theme) {
-      setCurrentTheme(themeName);
-      localStorage.setItem('terminal-theme', themeName);
-      
-      // Apply theme class to document body
-      document.body.className = document.body.className.replace(/theme-\w+/g, '');
-      if (theme.class) {
-        document.body.classList.add(theme.class);
-      }
-      return true;
-    }
-    return false;
-  };
-
-  useEffect(() => {
-    // Apply initial theme on mount
-    switchTheme(currentTheme);
-  }, [currentTheme]);
 
   useEffect(() => {
     // Simulate typing the 'welcome' command with typing effect
@@ -157,7 +132,7 @@ const Terminal: React.FC = () => {
       case '':
         responseLines = [];
         break;
-      case 'help':
+             case 'help':
          responseLines = [
            { type: 'info', content: 'Available Commands:' },
            { type: 'output', content: '  help           - Show this help message' },
@@ -168,7 +143,6 @@ const Terminal: React.FC = () => {
            { type: 'output', content: '  projects       - Portfolio projects' },
            { type: 'output', content: '  gui            - View GUI version of portfolio' },
            { type: 'output', content: '  contact        - Contact information' },
-           { type: 'output', content: '  theme          - Change terminal theme' },
            { type: 'output', content: '  clear          - Clear terminal' },
            { type: 'output', content: '  whoami         - Current user info' }
          ];
@@ -275,40 +249,7 @@ const Terminal: React.FC = () => {
           { type: 'output', content: 'Feel free to reach out for collaborations or opportunities!' }
         ];
         break;
-      case 'theme':
-        const args = command.split(' ');
-        if (args.length === 1) {
-          // List available themes
-          responseLines = [
-            { type: 'success', content: 'Available Themes:' },
-            { type: 'output', content: '' },
-            ...AVAILABLE_THEMES.map(theme => {
-              const lineType: 'success' | 'info' = theme.name === currentTheme ? 'success' : 'info';
-              return {
-                type: lineType,
-                content: `${theme.name === currentTheme ? '→ ' : '  '}${theme.displayName} (${theme.name}) - ${theme.description}`
-              };
-            }),
-            { type: 'output', content: '' },
-            { type: 'info', content: 'Usage: theme <name>' },
-            { type: 'info', content: 'Example: theme cyberpunk' }
-          ];
-        } else {
-          const themeName = args[1].toLowerCase();
-          if (switchTheme(themeName)) {
-            const theme = AVAILABLE_THEMES.find(t => t.name === themeName)!;
-            responseLines = [
-              { type: 'success', content: `Theme switched to: ${theme.displayName}` },
-              { type: 'output', content: theme.description }
-            ];
-          } else {
-            responseLines = [
-              { type: 'error', content: `Theme '${themeName}' not found` },
-              { type: 'output', content: 'Use "theme" to see available themes' }
-            ];
-          }
-        }
-        break;
+      
       case 'whoami':
         responseLines = [
           { type: 'success', content: 'You are browsing as: Visitor' },
@@ -348,11 +289,8 @@ const Terminal: React.FC = () => {
 
   return (
     <div className="h-screen w-full bg-background flex items-center justify-center p-4">
-      <div className="w-full max-w-6xl h-full max-h-[90vh] bg-terminal-bg border-2 border-terminal-border rounded-lg shadow overflow-hidden flex flex-col">
-        <TerminalHeader 
-          currentTheme={currentTheme}
-          onThemeChange={switchTheme}
-        />
+      <div className={`w-full max-w-6xl h-full max-h-[90vh] bg-terminal-bg border-2 border-terminal-border rounded-lg shadow overflow-hidden flex flex-col ${themes[currentTheme as keyof typeof themes]?.class || ''}`}> 
+        <TerminalHeader />
         <div 
           ref={terminalRef}
           className="flex-1 min-h-0 overflow-y-auto p-4 font-mono text-base relative scroll-smooth"
