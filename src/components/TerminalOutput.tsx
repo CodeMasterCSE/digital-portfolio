@@ -40,11 +40,33 @@ export const TerminalOutput: React.FC<TerminalOutputProps> = ({
     return content;
   };
 
+  const renderContentWithLinks = (content: string) => {
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    const parts = content.split(urlRegex);
+    
+    return parts.map((part, index) => {
+      if (part.match(urlRegex)) {
+        return (
+          <a
+            key={index}
+            href={part}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#4A9EFF] hover:text-[#6BB3FF] underline cursor-pointer transition-colors duration-200"
+          >
+            {part}
+          </a>
+        );
+      }
+      return <span key={index}>{part}</span>;
+    });
+  };
+
   return (
     <div className="space-y-1">
       {lines.map((line, index) => (
         <div key={index} className={`${getLineColor(line.type)} whitespace-pre-wrap`}>
-          {line.type === 'command' ? renderCommandLine(line.content) : line.content}
+          {line.type === 'command' ? renderCommandLine(line.content) : renderContentWithLinks(line.content)}
         </div>
       ))}
       {currentLine && (
@@ -63,6 +85,7 @@ export const TerminalOutput: React.FC<TerminalOutputProps> = ({
               speed={20}
               className={getLineColor(currentLine.type)}
               onComplete={onLineComplete}
+              renderContent={(text) => renderContentWithLinks(text)}
             />
           )}
         </div>

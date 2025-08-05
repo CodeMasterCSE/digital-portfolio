@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { TerminalHeader } from './TerminalHeader';
 import { TerminalOutput } from './TerminalOutput';
 import { TerminalInput } from './TerminalInput';
-import ProjectsDisplay from './ProjectsDisplay';
+
 
 export interface TerminalLine {
   type: 'command' | 'output' | 'error' | 'success' | 'info';
@@ -17,7 +17,7 @@ const Terminal: React.FC = () => {
   const [commandHistory, setCommandHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [currentTheme, setCurrentTheme] = useState('matrix');
-  const [showProjects, setShowProjects] = useState(false);
+  
   const terminalRef = useRef<HTMLDivElement>(null);
   const prevLinesLength = useRef<number>(0);
 
@@ -210,11 +210,23 @@ const Terminal: React.FC = () => {
         ];
         break;
       case 'projects':
-        setShowProjects(true);
         responseLines = [
           { type: 'success', content: 'Portfolio Projects' },
           { type: 'output', content: '' },
-          { type: 'info', content: 'Loading projects interface...' }
+          { type: 'info', content: '📂 Project 1: Interactive Terminal Portfolio' },
+          { type: 'output', content: 'A modern terminal-style portfolio website built with React and TypeScript.' },
+          { type: 'output', content: 'Features command-line interface, typing animations, and multiple themes for an engaging user experience.' },
+          { type: 'output', content: 'Technologies: React, TypeScript, Tailwind CSS, Vite' },
+          { type: 'output', content: '🔗 GitHub: https://github.com/CodeMasterCSE/terminal-portfolio' },
+          { type: 'output', content: '🌐 Live Demo: https://terminal-portfolio.vercel.app' },
+          { type: 'output', content: '' },
+          { type: 'info', content: '📂 Project 2: My Digital Space' },
+          { type: 'output', content: 'A comprehensive GUI portfolio showcasing my projects, skills, and achievements.' },
+          { type: 'output', content: 'Features responsive design, modern UI/UX, and interactive elements.' },
+          { type: 'output', content: 'Technologies: HTML, CSS, JavaScript, Bootstrap' },
+          { type: 'output', content: '🔗 GitHub: https://github.com/CodeMasterCSE/my-digital-space' },
+          { type: 'output', content: '🌐 Live Demo: https://codemastercse.github.io/my-digital-space/' },
+          { type: 'output', content: '' }
         ];
         break;
       case 'gui':
@@ -253,7 +265,7 @@ const Terminal: React.FC = () => {
         setVisibleLines([]);
         setTypingQueue([]);
         setCurrentLine(null);
-        setShowProjects(false);
+        
         return;
              default:
          responseLines = [
@@ -299,11 +311,6 @@ const Terminal: React.FC = () => {
             currentLine={currentLine}
             onLineComplete={handleLineComplete}
           />
-          {showProjects && (
-            <div className="my-6 border-t border-terminal-border pt-4">
-              <ProjectsDisplay projects={projects} />
-            </div>
-          )}
           <TerminalInput 
             onExecuteCommand={executeCommand}
             commandHistory={commandHistory}
