@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { TerminalHeader } from './TerminalHeader';
 import { TerminalOutput } from './TerminalOutput';
 import { TerminalInput } from './TerminalInput';
+import ProjectsDisplay from './ProjectsDisplay';
 
 export interface TerminalLine {
   type: 'command' | 'output' | 'error' | 'success' | 'info';
@@ -16,6 +17,7 @@ const Terminal: React.FC = () => {
   const [commandHistory, setCommandHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [currentTheme, setCurrentTheme] = useState('matrix');
+  const [showProjects, setShowProjects] = useState(false);
   const terminalRef = useRef<HTMLDivElement>(null);
   const prevLinesLength = useRef<number>(0);
 
@@ -25,6 +27,23 @@ const Terminal: React.FC = () => {
     retro: { name: 'Retro Amber', class: 'theme-retro' },
     ocean: { name: 'Ocean Blue', class: 'theme-ocean' }
   };
+
+  const projects = [
+    {
+      title: "Interactive Terminal Portfolio",
+      description: "A modern terminal-style portfolio website built with React and TypeScript. Features command-line interface, typing animations, and multiple themes for an engaging user experience.",
+      githubLink: "https://github.com/CodeMasterCSE/terminal-portfolio",
+      deployedLink: "https://terminal-portfolio.vercel.app",
+      technologies: ["React", "TypeScript", "Tailwind CSS", "Vite"]
+    },
+    {
+      title: "My Digital Space",
+      description: "A comprehensive GUI portfolio showcasing my projects, skills, and achievements. Features responsive design, modern UI/UX, and interactive elements.",
+      githubLink: "https://github.com/CodeMasterCSE/my-digital-space",
+      deployedLink: "https://codemastercse.github.io/my-digital-space/",
+      technologies: ["HTML", "CSS", "JavaScript", "Bootstrap"]
+    }
+  ];
 
   useEffect(() => {
     // Simulate typing the 'welcome' command with typing effect
@@ -122,6 +141,7 @@ const Terminal: React.FC = () => {
            { type: 'output', content: '  education      - Educational background' },
            { type: 'output', content: '  certifications - Certifications' },
            { type: 'output', content: '  projects       - Portfolio projects' },
+           { type: 'output', content: '  gui            - View GUI version of portfolio' },
            { type: 'output', content: '  contact        - Contact information' },
            { type: 'output', content: '  clear          - Clear terminal' },
            { type: 'output', content: '  whoami         - Current user info' }
@@ -190,13 +210,25 @@ const Terminal: React.FC = () => {
         ];
         break;
       case 'projects':
+        setShowProjects(true);
         responseLines = [
           { type: 'success', content: 'Portfolio Projects' },
           { type: 'output', content: '' },
-          { type: 'info', content: 'Will be added soon...' },
-          { type: 'output', content: '' },
-          { type: 'output', content: 'This section will showcase my portfolio projects and their details.' }
+          { type: 'info', content: 'Loading projects interface...' }
         ];
+        break;
+      case 'gui':
+        responseLines = [
+          { type: 'success', content: 'Opening GUI Portfolio...' },
+          { type: 'output', content: '' },
+          { type: 'info', content: '🌐 Redirecting to: https://codemastercse.github.io/my-digital-space/' },
+          { type: 'output', content: '' },
+          { type: 'output', content: 'Opening in new tab...' }
+        ];
+        // Open the GUI portfolio in a new tab
+        setTimeout(() => {
+          window.open('https://codemastercse.github.io/my-digital-space/', '_blank');
+        }, 1000);
         break;
       case 'contact':
         responseLines = [
@@ -221,6 +253,7 @@ const Terminal: React.FC = () => {
         setVisibleLines([]);
         setTypingQueue([]);
         setCurrentLine(null);
+        setShowProjects(false);
         return;
              default:
          responseLines = [
@@ -266,6 +299,11 @@ const Terminal: React.FC = () => {
             currentLine={currentLine}
             onLineComplete={handleLineComplete}
           />
+          {showProjects && (
+            <div className="my-6 border-t border-terminal-border pt-4">
+              <ProjectsDisplay projects={projects} />
+            </div>
+          )}
           <TerminalInput 
             onExecuteCommand={executeCommand}
             commandHistory={commandHistory}
