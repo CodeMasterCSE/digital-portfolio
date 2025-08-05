@@ -213,34 +213,29 @@ const Terminal: React.FC = () => {
         responseLines = [
           { type: 'success', content: 'Portfolio Projects' },
           { type: 'output', content: '' },
-          { type: 'info', content: '📂 Project 1: Interactive Terminal Portfolio' },
+          { type: 'info', content: '> Project 1: Interactive Terminal Portfolio' },
           { type: 'output', content: 'A modern terminal-style portfolio website built with React and TypeScript.' },
           { type: 'output', content: 'Features command-line interface, typing animations, and multiple themes for an engaging user experience.' },
           { type: 'output', content: 'Technologies: React, TypeScript, Tailwind CSS, Vite' },
-          { type: 'output', content: '🔗 GitHub: https://github.com/CodeMasterCSE/terminal-portfolio' },
-          { type: 'output', content: '🌐 Live Demo: https://terminal-portfolio.vercel.app' },
+          { type: 'output', content: '[git] GitHub: https://github.com/CodeMasterCSE/terminal-portfolio' },
+          { type: 'output', content: '[web] Live Demo: https://terminal-portfolio.vercel.app' },
           { type: 'output', content: '' },
-          { type: 'info', content: '📂 Project 2: My Digital Space' },
+          { type: 'info', content: '> Project 2: My Digital Space' },
           { type: 'output', content: 'A comprehensive GUI portfolio showcasing my projects, skills, and achievements.' },
           { type: 'output', content: 'Features responsive design, modern UI/UX, and interactive elements.' },
           { type: 'output', content: 'Technologies: HTML, CSS, JavaScript, Bootstrap' },
-          { type: 'output', content: '🔗 GitHub: https://github.com/CodeMasterCSE/my-digital-space' },
-          { type: 'output', content: '🌐 Live Demo: https://codemastercse.github.io/my-digital-space/' },
+          { type: 'output', content: '[git] GitHub: https://github.com/CodeMasterCSE/my-digital-space' },
+          { type: 'output', content: '[web] Live Demo: https://codemastercse.github.io/my-digital-space/' },
           { type: 'output', content: '' }
         ];
         break;
       case 'gui':
         responseLines = [
           { type: 'success', content: 'Opening GUI Portfolio...' },
-          { type: 'output', content: '' },
-          { type: 'info', content: '🌐 Redirecting to: https://codemastercse.github.io/my-digital-space/' },
-          { type: 'output', content: '' },
-          { type: 'output', content: 'Opening in new tab...' }
+          { type: 'output', content: 'Launching in new tab...' }
         ];
-        // Open the GUI portfolio in a new tab
-        setTimeout(() => {
-          window.open('https://codemastercse.github.io/my-digital-space/', '_blank');
-        }, 1000);
+        // Open the GUI portfolio in a new tab immediately
+        window.open('https://codemastercse.github.io/my-digital-space/', '_blank');
         break;
       case 'contact':
         responseLines = [
