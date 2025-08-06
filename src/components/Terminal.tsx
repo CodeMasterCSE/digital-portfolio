@@ -143,6 +143,7 @@ const Terminal: React.FC = () => {
            { type: 'output', content: '  projects       - Portfolio projects' },
            { type: 'output', content: '  gui            - View GUI version of portfolio' },
            { type: 'output', content: '  contact        - Contact information' },
+           { type: 'output', content: '  email          - Send me an email' },
            { type: 'output', content: '  clear          - Clear terminal' },
            { type: 'output', content: '  whoami         - Current user info' }
          ];
@@ -234,8 +235,17 @@ const Terminal: React.FC = () => {
           { type: 'success', content: 'Opening GUI Portfolio...' },
           { type: 'output', content: 'Launching in new tab...' }
         ];
-        // Open the GUI portfolio in a new tab immediately
-        window.open('https://codemastercse.github.io/my-digital-space/', '_blank');
+        // Open the GUI portfolio in a new tab after showing output
+        setTimeout(() => {
+          window.open('https://codemastercse.github.io/my-digital-space/', '_blank');
+        }, 1500);
+        break;
+      case 'email':
+        responseLines = [
+          { type: 'success', content: 'Opening Email Client...' }
+        ];
+        // Open email client immediately
+        window.open('mailto:sampad.sg.cse@gmail.com', '_blank');
         break;
       case 'contact':
         responseLines = [
