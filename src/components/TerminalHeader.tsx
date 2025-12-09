@@ -29,7 +29,7 @@ const TerminalHeader: React.FC<TerminalHeaderProps> = ({ showDateTime = true }) 
         <span className="w-3 h-3 rounded-full bg-green-500 inline-block"></span>
       </div>
       <span className="mx-auto text-terminal-prompt font-mono text-base select-none">
-        SampadGorai@portfolio
+        SampadGorai
       </span>
       {showDateTime && (
         <span className="absolute right-4 text-terminal-prompt font-mono text-xs select-none">
